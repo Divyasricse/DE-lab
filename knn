@@ -1,38 +1,84 @@
 # DE-lab
 
-
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-#include<math.h>
-void main(){
-    char *name[8]={"ajay","mark","sara","zaira","sachin","rahul","pooja","smith"};
-    int age[8]={32,40,16,14,55,40,20,15};
-    int gender[8]={1,1,0,0,1,1,0,1};
-    char *sport[8]={"football","neither","cricket","cricket","cricket","cricket","neither","football"};
-    int n=8;
-    float euc[30];
-    char na;
-    int a;
-    int g;
-    char s;
-    printf("enter name");
-    scanf("%c",na);
-    printf("enter age");
-    scanf("%d",&a);
-    printf("enter gendert 1-male 0-female");
-    scanf("%d",&g);
-    for(int i=0;i<n;i++){
-        euc[i]=sqrt(((age[i]-a)*(age[i]-a))+((gender[i]-g)*(gender[i]-g)));
-    }
-    float min=euc[0];
-    int k=0;
-    for(int i=0;i<n;i++){
-        if(min>euc[i]){
-            min=euc[i];
-            k=i;
+ #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+char check(int min,int k[50],int n){
+    int p;
+    for (int i=0;i<n;i++)
+    {
+        if (min==k[i])
+        {
+            p=i;
         }
     }
-    printf("%d\n",k);
-    printf("%s",sport[k]);
+    return p;
 }
+int bubblesort(int euc[50],int n)
+{
+    int t;
+    for (int i=0;i<n-1;i++)
+    {
+        for(int j=0;j<n-i-1;j++)
+        {
+            if (euc[j]>euc[j+1])
+            {
+                t=euc[j];
+                euc[j]=euc[j+1];
+                euc[j+1]=euc[j];
+               
+            }
+        }
+    }
+    return euc[0];
+   
+}
+int main()
+{
+    int n=8;
+    int no;
+    int euc[50];
+    int k[50];
+    int min;
+    struct ss{
+        char name[50];
+        int age;
+        int gender;
+        char sport[50];
+    };
+    struct ss v[15];
+    for (int i=0;i<n;i++)
+    {
+        scanf("%s%d%d%s",v[i].name,&v[i].age,&v[i].gender,v[i].sport);
+    }
+    int cage,cgender;
+    char cname[50];
+    char csport[50];
+    printf("enter details:");
+    scanf("%s%d%d",cname,&cage,&cgender);
+    for (int i=0;i<n;i++)
+    {
+        euc[i]=sqrt(((cage-v[i].age)*(cage-v[i].age))+((cgender-v[i].gender)*(cgender-v[i].gender)));
+        k[i]=sqrt(((cage-v[i].age)*(cage-v[i].age))+((cgender-v[i].gender)*(cgender-v[i].gender)));
+       
+    }
+    min=bubblesort(euc,n);
+    no=check(min,k,n);
+    printf("the sport is:");
+    printf("%s",v[no].sport);
+   
+   
+}
+
+ot:
+ajay 32 1 foot                                                                            
+mark 40 1 neither
+sara 16 0 cricket
+zaira 14 0 cricket
+sachin 35 1 cricket
+rahul 40 1 cricket
+pooja 20 0 neither
+smith 15 1 foot
+enter details:angelina 5 0
+the sport is:cricket
